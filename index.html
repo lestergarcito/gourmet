@@ -1,0 +1,168 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gourmet Express | Sistema de Ventas</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="estilos.css">
+</head>
+<body>
+
+<div class="main-wrapper">
+
+    <header class="app-header">
+        <div>
+            <div class="logo">⚡ Gourmet<span>Express</span></div>
+            <p class="subtitle">Sistema profesional de pedidos y ventas</p>
+        </div>
+        <div class="status"><span class="status-dot"></span> Sistema activo</div>
+    </header>
+
+    <section class="dashboard">
+        <div class="stat-card">
+            <div class="stat-icon">💰</div>
+            <p>Ventas acumuladas</p>
+            <h3 id="ventasTotales">$0.00</h3>
+        </div>
+
+        <div class="stat-card">
+            <div class="stat-icon">🛒</div>
+            <p>Pedidos registrados</p>
+            <h3 id="cantidadPedidos">0</h3>
+        </div>
+
+        <div class="stat-card">
+            <div class="stat-icon">📊</div>
+            <p>Ticket promedio</p>
+            <h3 id="ticketPromedio">$0.00</h3>
+        </div>
+    </section>
+
+    <main class="grid-container">
+
+        <section class="card">
+            <div class="section-heading">
+                <h2>🍔 Nuevo pedido</h2>
+                <span class="section-tag">CAJA</span>
+            </div>
+            <p class="section-description">Personaliza el pedido del cliente.</p>
+
+            <form id="formularioRestaurante">
+
+                <div class="form-group">
+                    <label for="nombreCliente">Nombre del cliente</label>
+                    <input type="text" id="nombreCliente"
+                           placeholder="Ej. Carlos Mendoza"
+                           maxlength="80" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="platoPrincipal">🍕 Plato principal</label>
+                    <select id="platoPrincipal" required>
+                        <option value="pizza">Pizza Familiar — $12.00</option>
+                        <option value="hamburguesa">Hamburguesa Especial — $7.50</option>
+                        <option value="tacos">Tacos al Pastor — $8.50</option>
+                        <option value="sushi">Roll de Sushi Premium — $11.00</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>🥤 Tamaño de bebida</label>
+                    <div class="option-grid">
+                        <label class="option-card">
+                            <input type="radio" name="tamanoBebida" value="pequena" checked>
+                            <span>Pequeña <small>$1.00</small></span>
+                        </label>
+                        <label class="option-card">
+                            <input type="radio" name="tamanoBebida" value="mediana">
+                            <span>Mediana <small>$1.50</small></span>
+                        </label>
+                        <label class="option-card">
+                            <input type="radio" name="tamanoBebida" value="grande">
+                            <span>Grande <small>$2.00</small></span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>🍟 Extras y postres</label>
+                    <div class="extras-grid">
+                        <label class="option-card">
+                            <input type="checkbox" id="extraPapas">
+                            <span>Papas fritas <small>+$2.50</small></span>
+                        </label>
+                        <label class="option-card">
+                            <input type="checkbox" id="extraHelado">
+                            <span>Helado <small>+$1.80</small></span>
+                        </label>
+                        <label class="option-card">
+                            <input type="checkbox" id="extraAros">
+                            <span>Aros de cebolla <small>+$3.00</small></span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="live-total">
+                    <div>
+                        <small>TOTAL A PAGAR</small>
+                        <strong id="liveTotalAmount">$13.00</strong>
+                    </div>
+                    <span class="total-icon">💵</span>
+                </div>
+
+                <button type="submit" class="btn btn-primary btn-block" id="btnProcesar">
+                    🛒 Procesar y guardar pedido
+                </button>
+            </form>
+
+            <div id="reciboRespuesta" class="recibo-card" style="display:none;"></div>
+        </section>
+
+        <section class="card">
+            <div class="section-heading">
+                <h2>📋 Gestión de ventas</h2>
+                <span class="section-tag">ADMIN</span>
+            </div>
+            <p class="section-description">
+                Consulta tus registros almacenados en IndexedDB.
+            </p>
+
+            <div class="database-status">
+                <span>🗄️ Base de datos</span>
+                <strong id="estadoDB">Conectando...</strong>
+            </div>
+
+            <div class="action-buttons">
+                <button type="button" id="btnVerHistorial" class="btn btn-secondary">
+                    📋 Mostrar historial
+                </button>
+                <button type="button" id="btnBorrarHistorial" class="btn btn-danger">
+                    🗑️ Limpiar base de datos
+                </button>
+            </div>
+
+            <div id="tablaHistorial" class="historial-container" style="display:none;"></div>
+        </section>
+
+    </main>
+
+    <footer class="footer">
+        Gourmet Express © 2026 · Sistema de gestión de pedidos
+    </footer>
+
+</div>
+
+<div id="toastContainer"></div>
+
+<!-- Dexie.js: biblioteca para IndexedDB -->
+<script src="https://cdn.jsdelivr.net/npm/dexie@4.0.11/dist/dexie.min.js"></script>
+<script src="programa.js"></script>
+
+</body>
+</html>
